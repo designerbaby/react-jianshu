@@ -31,8 +31,8 @@ class Header extends Component {
               timeout={200}
               classNames="slide">
               <NavSearch  className={this.props.focused ? 'focused': ''}
-                          onFocus={this.handleInputFocus}
-                          onBlur={this.handleInpuBlur}
+                          onFocus={this.props.handleInputFocus}
+                          onBlur={this.props.handleInpuBlur}
               ></NavSearch>
             </CSSTransition>
             <i className={this.props.focused ? 'iconfont focused': 'iconfont'}>&#xe650;</i>
@@ -64,11 +64,24 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    focused: state.focused
+    focused: state.header.focused
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {}
+  return {
+    handleInputFocus() {
+      const action = {
+        type: 'search_focus'
+      }
+      dispatch(action)
+    },
+    handleInpuBlur() {
+      const action = {
+        type: 'search_blur'
+      }
+      dispatch(action)
+    }
+  }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Header)
